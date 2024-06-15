@@ -110,6 +110,7 @@ def launch_gradio(port):
         inbrowser="--open" in sys.argv,
         server_port=port,
         allowed_paths=['assets/audios'],
+        server_name='0.0.0.0'
     )
 
 
