@@ -34,13 +34,14 @@ def download_model_and_index_files(data):
     print(f"Processing voice id {voice['voiceId']}...")
     voice_id = voice['voiceId']
     model_file_path = voice['modelPath']
-    model_filename = model_file_path.split('/')[-1]
     index_file_path = voice['indexPath']
-    index_filename = index_file_path.split('/')[-1]
 
     if model_file_path is None or index_file_path is None or model_file_path == "" or index_file_path == "" or not model_file_path.endswith(".pth") or not index_file_path.endswith(".index"):
       print(f"Valid Model or index file path is missing for voice id {voice_id}")
       return voice_id
+
+    model_filename = model_file_path.split('/')[-1]
+    index_filename = index_file_path.split('/')[-1]
 
     # check if the model file exists
     if os.path.exists(model_file_path):
