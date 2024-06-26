@@ -183,8 +183,8 @@ def main():
   # Download the pretrained model
   download_pretrained_model()
   # Call the function to fetch all the voices
-  data = fetch_all_voices()
-  download_model_and_index_files(data)
+  # data = fetch_all_voices()
+  # download_model_and_index_files(data)
 
 if __name__ == "__main__":
   main()
