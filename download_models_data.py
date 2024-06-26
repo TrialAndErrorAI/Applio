@@ -19,6 +19,36 @@ S3Connect = boto3.client('s3',
 BFF_API_URL = "https://api.voxapp.ai"
 get_all_voices_url = f"{BFF_API_URL}/get_all_voices"
 
+def download_pretrained_model():
+  print("Downloading pretrained model...")
+  file_name = 'pretrained_v2.zip'
+  
+  # check if the folder exists
+  if os.path.exists("pretrained_v2"):
+    print("Skipping.... Pretrained model folder already exists")
+    return
+  
+  # download the index file
+  rs = s3_download(Bucket='vox-ai',
+            S3Client=S3Connect,
+            LocalFilePath=file_name,
+            DownloadMethod="File",
+            S3FilePath=file_name)
+  
+  if rs["result"] != "OK":
+    print(f"Pretrained model download failed, Response: {rs}")
+    raise Exception("Pretrained model download failed, try again later")
+  
+  print("Pretrained model zip downloaded successfully")
+  
+  # Unzip the downloaded file
+  os.system(f"unzip {file_name}")
+  print("Pretrained model unzipped successfully") 
+  
+  # Remove the zip file
+  os.system(f"rm {file_name}")
+  print("Pretrained model zip file removed successfully")
+
 def fetch_all_voices():
   print("Fetching all voices...")
   # Make an API call to fetch all the voices
@@ -42,7 +72,7 @@ def download_model_and_index_files(data):
 
     model_filename = model_file_path.split('/')[-1]
     index_filename = index_file_path.split('/')[-1]
-
+    
     # check if the model file exists
     if os.path.exists(model_file_path):
       print(f"Skipping.... Model file {model_filename} already exists")
@@ -150,6 +180,8 @@ def download_index_file(voice_id, index_file_path, index_filename):
   return rs
         
 def main():
+  # Download the pretrained model
+  download_pretrained_model()
   # Call the function to fetch all the voices
   data = fetch_all_voices()
   download_model_and_index_files(data)
