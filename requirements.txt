@@ -38,3 +38,8 @@ pypresence
 beautifulsoup4
 flask
 local-attention
+
+# migration requirements
+boto3
+dataplane
+fast-unzip

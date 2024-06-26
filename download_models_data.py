@@ -42,7 +42,7 @@ def download_pretrained_model():
   print("Pretrained model zip downloaded successfully")
   
   # Unzip the downloaded file
-  os.system(f"unzip {file_name}")
+  os.system(f"fast_unzip {file_name} -d /assets")
   print("Pretrained model unzipped successfully") 
   
   # Remove the zip file
@@ -183,8 +183,8 @@ def main():
   # Download the pretrained model
   download_pretrained_model()
   # Call the function to fetch all the voices
-  # data = fetch_all_voices()
-  # download_model_and_index_files(data)
+  data = fetch_all_voices()
+  download_model_and_index_files(data)
 
 if __name__ == "__main__":
   main()
