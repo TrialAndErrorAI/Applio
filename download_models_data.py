@@ -24,7 +24,7 @@ def download_pretrained_model():
   file_name = 'pretrained_v2.zip'
   
   # check if the folder exists
-  if os.path.exists("pretrained_v2"):
+  if os.path.exists("assets/pretrained_v2"):
     print("Skipping.... Pretrained model folder already exists")
     return
   
@@ -42,7 +42,7 @@ def download_pretrained_model():
   print("Pretrained model zip downloaded successfully")
   
   # Unzip the downloaded file
-  os.system(f"fast_unzip {file_name} -d /assets")
+  os.system(f"fast_unzip {file_name} -d assets")
   print("Pretrained model unzipped successfully") 
   
   # Remove the zip file
