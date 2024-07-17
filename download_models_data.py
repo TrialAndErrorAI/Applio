@@ -42,7 +42,7 @@ def download_pretrained_model():
   print("Pretrained model zip downloaded successfully")
   
   # Unzip the downloaded file
-  os.system(f"fast_unzip {file_name} -d assets")
+  os.system(f"fast_unzip {file_name} -d assets/pretrained_v2")
   print("Pretrained model unzipped successfully") 
   
   # Remove the zip file
