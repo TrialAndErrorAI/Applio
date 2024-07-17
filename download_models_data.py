@@ -17,7 +17,7 @@ S3Connect = boto3.client('s3',
 
 # API endpoint
 BFF_API_URL = "https://api.voxapp.ai"
-get_all_voices_url = f"{BFF_API_URL}/get_all_voices"
+get_all_voices_url = f"{BFF_API_URL}/internal/get_all_voices"
 
 def download_pretrained_model():
   print("Downloading pretrained model...")
