@@ -100,13 +100,26 @@ def download_model_and_index_files(data):
 
       print(f"Index file {index_filename} downloaded successfully, Response: {rs}")
 
-  # Split the data into batches of 10
-  batches = [data[i:i+10] for i in range(0, len(data), 10)]
+  # Define the batch size
+  BATCH_SIZE = 10
+
+  # Split the data into batches
+  batches = [data[i:i+BATCH_SIZE] for i in range(0, len(data), BATCH_SIZE)]
+
+  # Calculate the total number of records
   total_records = len(data)
+
+  # Initialize the processed records counter
   processed_records = 0
+
+  # Calculate the number of batches
   num_batches = len(batches)
-  if len(data) % 10 != 0:
+
+  # Adjust the number of batches if the data length is not divisible by the batch size
+  if len(data) % BATCH_SIZE != 0:
     num_batches += 1
+
+  # Print the total number of batches
   print(f"Total batches created: {num_batches}")
 
   # Process each batch in parallel
@@ -153,7 +166,7 @@ def download_model_file(voice_id, model_file_path, model_filename):
 
   # create the directory if it does not exist
   if not os.path.exists(os.path.dirname(model_file_path)):
-    os.makedirs(os.path.dirname(model_file_path))
+    os.makedirs(os.path.dirname(model_file_path), exist_ok=True)
 
   # download the model file
   rs = s3_download(Bucket='vox-ai-model-pth-files',
@@ -169,7 +182,7 @@ def download_index_file(voice_id, index_file_path, index_filename):
   
   # create the directory if it does not exist
   if not os.path.exists(os.path.dirname(index_file_path)):
-    os.makedirs(os.path.dirname(index_file_path))
+    os.makedirs(os.path.dirname(index_file_path), exist_ok=True)
 
   # download the index file
   rs = s3_download(Bucket='vox-ai-model-index-files',
