@@ -1,5 +1,1 @@
-#!/bin/bash
-
-# Restart the master Gunicorn process
-
-pgrep -f "python app.py" | xargs kill -HUP
+cat applio.pid | xargs kill -HUP
