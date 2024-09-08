@@ -2,11 +2,12 @@
 printf "\033]0;Applio\007"
 . .venv/bin/activate
 
+# Default port
+PORT=${1:-6969}
+
  export PYTORCH_ENABLE_MPS_FALLBACK=1
  export PYTORCH_MPS_HIGH_WATERMARK_RATIO=0.0
- 
-while true; do
-    python app.py
-    echo "Applio Exited. Restarting Applio in 5 seconds..."
-    sleep 5
-done
+
+ # Start the service
+echo "Starting Applio Service"
+gunicorn -p applio.pid -w 1 -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:$PORT api:app --timeout 300
