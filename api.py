@@ -32,7 +32,9 @@ async def upload(file: UploadFile = File(...)):
         file_path = os.path.join(current_dir, "assets", "audios", file.filename)
         with open(file_path, "wb") as f:
             f.write(file.file.read())
-        return [file_path]
+        # return short path
+        short_path = os.path.relpath(file_path, current_dir)
+        return [short_path]
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
