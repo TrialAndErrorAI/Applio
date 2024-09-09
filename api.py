@@ -3,6 +3,7 @@ from models import TTSRequest, InferRequest, BatchInferRequest, PreprocessReques
 import subprocess
 import sys
 import os
+import shutil
 
 app = FastAPI(debug=True)
 
@@ -30,8 +31,8 @@ async def upload(file: UploadFile = File(...)):
     try:
         # save the file to the /assets/audios directory
         file_path = os.path.join(current_dir, "assets", "audios", file.filename)
-        with open(file_path, "wb") as f:
-            f.write(file.file.read())
+        with open(file_path, 'wb') as f:
+            shutil.copyfileobj(file.file, f)
         # return short path
         short_path = os.path.relpath(file_path, current_dir)
         return [short_path]
