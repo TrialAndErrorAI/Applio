@@ -10,4 +10,4 @@ PORT=${1:-6969}
 
  # Start the service
 echo "Starting Applio Service"
-gunicorn -p applio.pid -w 1 -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:$PORT api:app --timeout 300
+gunicorn -p applio.pid -w 1 -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:$PORT api:app --timeout 0
